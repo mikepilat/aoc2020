@@ -1,8 +1,11 @@
-defmodule Day01 do
-  def part1 do
-    IO.puts("part1")
+defmodule Day1 do
+  def run do
+    part1()
+    part2()
+  end
 
-    {:ok, file} = File.read("priv/part1")
+  def part1 do
+    {:ok, file} = File.read("priv/input/day1")
 
     inputs =
       file
@@ -30,9 +33,7 @@ defmodule Day01 do
   end
 
   def part2 do
-    IO.puts("part2")
-
-    {:ok, file} = File.read("priv/part1")
+    {:ok, file} = File.read("priv/input/day1")
 
     inputs =
       file
