@@ -16,7 +16,7 @@ defmodule Day5 do
         |> elem(0)
       end)
       |> Enum.map(fn i ->
-        (i >>> 3) * 8 + (i &&& 7)
+        (i &&& 0x3F8) + (i &&& 0x07)
       end)
 
     max =
