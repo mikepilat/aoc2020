@@ -1,4 +1,6 @@
 defmodule Day5 do
+  use Bitwise
+
   def run do
     {:ok, file} = File.read("priv/input/day5")
 
@@ -6,8 +8,16 @@ defmodule Day5 do
       file
       |> String.trim()
       |> String.split("\n")
-      |> Enum.map(&String.graphemes/1)
-      |> Enum.map(&parse/1)
+      |> Enum.map(fn s ->
+        s
+        |> String.replace(["F", "L"], "0")
+        |> String.replace(["R", "B"], "1")
+        |> Integer.parse(2)
+        |> elem(0)
+      end)
+      |> Enum.map(fn i ->
+        (i >>> 3) * 8 + (i &&& 7)
+      end)
 
     max =
       ids
@@ -20,35 +30,5 @@ defmodule Day5 do
     )
     |> MapSet.to_list()
     |> IO.inspect(label: "missing seats")
-  end
-
-  def parse(list) do
-    row =
-      list
-      |> Enum.take(7)
-      |> partition(128, "F", "B")
-
-    seat =
-      list
-      |> Enum.drop(7)
-      |> partition(8, "L", "R")
-
-    trunc(row) * 8 + trunc(seat)
-  end
-
-  def partition(partitions, num, lower, upper) do
-    partitions
-    |> Enum.reduce([0, num - 1], fn e, acc ->
-      [min, max] = acc
-
-      case e do
-        ^lower ->
-          [min, min + (max - min - 1) / 2]
-
-        ^upper ->
-          [min + (max - min + 1) / 2, max]
-      end
-    end)
-    |> hd
   end
 end
