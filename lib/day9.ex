@@ -42,7 +42,11 @@ defmodule Day9 do
         input |> Enum.slice(x..y) |> Enum.sum() == bad
       end)
 
-    (Enum.at(input, first) + Enum.at(input, last))
+    range = Enum.slice(input, first..last)
+    min = Enum.min(range)
+    max = Enum.max(range)
+
+    (min + max)
     |> IO.inspect(label: "part 2")
   end
 end
