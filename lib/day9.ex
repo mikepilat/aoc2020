@@ -8,8 +8,7 @@ defmodule Day9 do
       |> String.split("\n")
       |> Enum.map(&String.to_integer/1)
 
-    preamble = Enum.take(input, 25)
-    numbers = Enum.drop(input, 25)
+    {preamble, numbers} = Enum.split(input, 25)
 
     bad =
       numbers
