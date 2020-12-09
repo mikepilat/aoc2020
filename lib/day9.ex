@@ -31,22 +31,22 @@ defmodule Day9 do
 
     count = length(input)
 
-    {first, last} =
+    range =
       0..(count - 1)
       |> Stream.flat_map(fn x ->
         Stream.map(x..(count - 1), fn y ->
-          {x, y}
+          x..y
         end)
       end)
-      |> Enum.find(fn {x, y} ->
-        input |> Enum.slice(x..y) |> Enum.sum() == bad
+      |> Enum.find(fn range ->
+        input |> Enum.slice(range) |> Enum.sum() == bad
       end)
 
-    range = Enum.slice(input, first..last)
-    min = Enum.min(range)
-    max = Enum.max(range)
-
-    (min + max)
+    input
+    |> Enum.slice(range)
+    |> Enum.min_max()
+    |> Tuple.to_list()
+    |> Enum.sum()
     |> IO.inspect(label: "part 2")
   end
 end
