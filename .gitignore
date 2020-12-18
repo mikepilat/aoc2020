@@ -25,3 +25,5 @@ day01-*.tar
 
 # Temporary files for e.g. tests
 /tmp
+
+src/*.erl
